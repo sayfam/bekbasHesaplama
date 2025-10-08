@@ -1,0 +1,127 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5135YBN2SS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5135YBN2SS');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <title>Bekbaş </title>
+<style>
+.sifre-kapsayici {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(240, 240, 240, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sifre-kapsayici input {
+  padding: 15px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px;
+
+}
+
+.sifre-kapsayici button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+ 
+}
+
+.sifre-kapsayici button:hover {
+  background-color: #0056b3;
+}
+
+#sifreHata {
+  color: red;
+  margin-top: 15px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Tüm Cihazlar için Temel Stil */
+.sifre-kapsayici input, 
+.sifre-kapsayici button {
+  width: 100%;
+  max-width: 100%; /* Mobilde kesin genişlesin */
+  box-sizing: border-box;
+}
+
+/* Masaüstü için */
+@media (min-width: 769px) {
+  .sifre-kapsayici input, 
+  .sifre-kapsayici button {
+    width: 300px;
+    max-width: 300px;
+  }
+}
+</style>
+
+
+
+</head>
+<body>
+ 
+ <!-- test git değişikliği -->
+
+<div class="sifre-kapsayici">
+<div id="sifreHata"></div>
+  <input type="password" id="sifreInput" placeholder="Şifreyi girin" />
+  <button onclick="sifreKontrol()">Giriş</button>
+  
+</div>
+
+</body>
+<script>
+  function sifreKontrol() {
+    const girilen = document.getElementById('sifreInput').value;
+    const hataYazisi = document.getElementById('sifreHata');
+
+    if (girilen === '1234') {
+      window.location.href = 'secim.html';
+    } else {
+      hataYazisi.textContent = 'Hatalı şifre!';
+    }
+  }
+  
+  // Sayfa yüklendiğinde inputa odaklan
+  window.onload = function() {
+    document.getElementById('sifreInput').focus();
+  };
+  
+  // Enter tuşuna basıldığında giriş yap
+  document.getElementById('sifreInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      sifreKontrol();
+    }
+  });
+</script>
+
+</html>

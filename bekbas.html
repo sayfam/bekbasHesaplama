@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+	<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5135YBN2SS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5135YBN2SS');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bekbaş Hesaplamalar</title>
+  <link rel="icon" type="image/png" href="icon1.jpg" />
+
+
+  <style>
+  .info-icon {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #e0e7ff;
+  color: #333;
+  padding: 4px 8px;
+  border-radius: 12px;
+  z-index: 2;
+}
+
+.aciklama-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.95);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 10;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+.aciklama-icerik {
+  text-align: center;
+  font-size: 14px;
+  color: #222;
+}
+
+.aciklama-icerik button {
+  margin-top: 15px;
+  padding: 6px 12px;
+  font-size: 13px;
+  background: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px 10px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+   position: relative;
+    background: #fff;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    width: 280px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .card h2 {
+    font-size: 16px;
+    text-align: center;
+    margin: 8px 0;
+    color: #333;
+  }
+
+  label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #555;
+  }
+
+  input {
+    width: 100%;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    appearance: none;
+    -moz-appearance: textfield;
+  }
+
+  input::-webkit-inner-spin-button,
+  input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  .result {
+    min-height: 60px;
+    margin-top: 10px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #222;
+    white-space: pre-line;
+  }
+
+    button.temizle {
+  background-color: #ff6600; /* Bekbaş Tavukçu Turuncusu */
+  margin-top: 5px;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button.temizle:hover {
+  background-color: #cc5200;
+}
+.baslik {
+  width: 100%;
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #ff6600; /* Bekbaş Tavukçu Turuncusu */
+  margin-bottom: 40px;
+  font-family: 'Segoe UI', sans-serif;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  text-decoration:none;
+}
+.geri-git {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.geri-git:hover {
+  background: linear-gradient(135deg, #f76b1c, #fcb045);
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+.baslik-kapsayici {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* ortada tutmak için */
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+
+  .cikis-simgesi {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    
+ 
+    border-radius: 8px;
+  
+    cursor: pointer;
+    z-index: 10000;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cikis-simgesi:hover {
+    
+    transform: scale(1.1);
+  }
+
+  .cikis-simgesi .ikon {
+    width: 24px;
+    height: 24px;
+  }
+
+
+.card.secili {
+  border: 2px solid #28a745; /* Yeşil çerçeve */
+}
+
+
+</style>
+
+</head>
+<body>
+
+
+<div class="cikis-simgesi" onclick="cikisYap()" title="Çıkış">
+  <img src="cikis.png" alt="Icon" width="50" height="25">
+</div>
+
+
+
+  <!--<div class="baslik">🐔 BEKBAŞ MERKEZ</div>-->
+  <a href="secim.html" class="baslik">🐔 BEKBAŞ MERKEZ</a>
+
+<!-- Card 1: ortalama fiyat bulma -->
+<div class="card">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+      <p>Bu kart, mevcut depodaki ürün ve yeni gelen ürün miktarları ile fiyatlarına göre, ortalama birim fiyatı hesaplar. Maliyet takibi için kullanılır.</p>
+      <button onclick="aciklamaKapat(this)">Kapat</button>
+    </div>
+  </div>
+  <h2><strong>ÇALIŞ:</strong>1</h2>
+  <h2><u>Ortalama Fiyat Hesaplama</u></h2>
+  <input type="number" id="depoMiktar" placeholder="Depodaki Miktar" />
+  <input type="number" id="depoFiyat" step="0.0001" placeholder="Depodaki Fiyat (TL)" />
+  <input type="number" id="gelenMiktar" placeholder="Gelen Miktar" />
+  <input type="number" id="gelenFiyat" step="0.0001" placeholder="Gelen Fiyat (TL)" />
+  <button onclick="ortalamaFiyatHesapla()">Hesapla</button>
+  <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+  <div class="result" id="ortalamaSonuc"></div>
+</div>
+
+
+
+<!-- Card 2: Adet Hesaplama -->
+<div class="card">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+
+     <p>Bu kart, verilen tane gramajı, koli adedi ve toplam kilogram üzerinden, toplam adet sayısını hesaplar. Ayrıca, bir adet için belirlenen kilogram fiyatı üzerinden,
+	 KDV hariç ve KDV dahil adet fiyatlarını hesaplar. Bu bilgilerle toplam maliyet hesaplamaları yapılabilir.Örnegin: 450 gr sucuk*8 urununden 400 kg ve birim fiyati olarak 
+	 600 tl olarak fatura edilmistir. Bu bilgiler dogrultusunda Bir adet 450 gr urunun birim fiyati bulunur. </p>
+
+
+      <button onclick="aciklamaKapat(this)">Kapat</button>
+    </div>
+  </div>
+<h2><STRONG>ÇALIŞ:</STRONG>2</h2>
+<h2><u>KG TO ADET</u></h2>
+  <input type="number" id="taneGram" placeholder="Tane Gramajı (gr): örn:500"/>
+  <input type="number" id="koliAdedi" placeholder="Kolideki Adet Sayısı: örn:8" style="display:none;" value="1" />
+  <input type="number" id="toplamKg" placeholder="Toplam Miktar (kg): örn: 400" />
+  <input type="number" id="birimFiyat" step="0.0001" placeholder="KDV Hariç Birim Fiyat:örn:74.25" />
+  <input type="number" id="kdvOrani" value="1"  />
+  <button onclick="sosisDogruHesapla()">Hesapla</button>
+  <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+  <div class="result" id="sonuc3"></div> 
+</div>
+
+
+<!-- Card 4: Patates KG Hesaplama -->
+<div class="card">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+      <p>
+        Bu kart, toplam adet, adet gramajı ve birim fiyat bilgilerinden toplam gelen kilogramı ve kilogram başına fiyatı hesaplar. KDV dahil ve hariç fiyatlar sunulur.
+        Örneğin: 2500 gr'lık 20.000 adet patates 142,9 TL birim fiyat ve %1 KDV oranı ile faturalanmışsa, toplam kilogram ve kilogram fiyatı hesaplanır.
+      </p>
+      <button onclick="aciklamaKapat(this)">Kapat</button>
+    </div>
+  </div>
+
+  <h2><strong>ÇALIŞ: 3</strong></h2>
+  <h2><u>ADET TO KG </u></h2>
+
+  <input type="number" id="patatesAdet" placeholder="Toplam Adet: örn:20000" />
+  <input type="number" id="patatesGramaj" placeholder="Adet Gramajı (gr): örn:2500" />
+  <input type="number" id="patatesBirimFiyat" placeholder="Birim Fiyat (KDV Hariç): örn:142.9" step="0.0001" />
+  <input type="number" id="patatesKdvOrani" value="1" placeholder="KDV Oranı (%)" />
+
+  <button onclick="patatesKgHesapla()">Hesapla</button>
+  <button class="temizle" onclick="inputlariTemizle(this)">Temizle</button>
+
+  <div class="result" id="sonuc4"></div>
+</div>
+
+
+
+	
+  
+
+<!-- Card 4: Cari Kod Karşılaştırma -->
+<div class="card">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+      <p>Bu kart, iki Excel dosyasındaki Cari Kod sütunlarını karşılaştırır ve farklı olan kodları gösterir
+	  Yalnızca mevlana carisi için geçerlidir. Yeni mevlana carisini tespit eder.</p>
+      
+      <button onclick="aciklamaKapat(this)">Kapat</button>
+    </div>
+  </div>
+  <h2><STRONG>ÇALIŞ:</STRONG>4</h2>
+
+<h2><STRONG><a href="BEKBAS_CARD3/CARD3.html"  style="padding-top: 180px; display: block;">2 FARKLI EXCELİ KARŞILAŞTIR</a></STRONG></h2>
+</div>
+
+
+
+	<!-- Card 5: Stok ve Fiyat Excel Birleştirme -->
+<div class="card" id="card5">
+  <div class="info-icon" onclick="aciklamaGoster(this)">ℹ️</div>
+  <div class="aciklama-overlay">
+    <div class="aciklama-icerik">
+      <p>
+        Bu kart, “Stok Bakiye” ve “Fiyatlar” Excel dosyalarını birleştirir.  
+        Yeni Excel’de yalnızca şu sütunlar yer alır:  
+        <strong>Stok İsmi, Bakiye, [FIYATALIS]GENEL ALIŞ FİYATI, [FIYAT1]GENEL SATIŞ FİYATI</strong>.
+      </p>
+      <button onclick="aciklamaKapat(this)">Kapat</button>
+    </div>
+  </div>
+
+  <h2><strong>ÇALIŞ: 5</strong></h2>
+  <h2><u>STOK + FİYAT EXCEL BİRLEŞTİR</u></h2>
+
+  <label>Stok Bakiye Excel:</label>
+  <input type="file" id="stokFile" accept=".xls,.xlsx">
+
+  <label>Fiyatlar Excel:</label>
+  <input type="file" id="fiyatFile" accept=".xls,.xlsx">
+
+  <button onclick="combineExcels()">Birleştir ve İndir</button>
+  <div class="result" id="combineResult"></div>
+</div>
+
+
+  <script>
+
+
+  
+  function ortalamaFiyatHesapla() {
+  const depoKg = parseFloat(document.getElementById('depoMiktar').value);
+  const depoFiyat = parseFloat(document.getElementById('depoFiyat').value);
+  const gelenKg = parseFloat(document.getElementById('gelenMiktar').value);
+  const gelenFiyat = parseFloat(document.getElementById('gelenFiyat').value);
+
+  if (isNaN(depoKg) || isNaN(depoFiyat) || isNaN(gelenKg) || isNaN(gelenFiyat)) {
+    document.getElementById('ortalamaSonuc').innerText = "Lütfen tüm alanları doldurun.";
+    return;
+  }
+
+  const toplamMiktar = depoKg + gelenKg;
+  const toplamTutar = (depoKg * depoFiyat) + (gelenKg * gelenFiyat);
+  const ortalamaFiyat = (toplamTutar / toplamMiktar).toFixed(2);
+
+  document.getElementById('ortalamaSonuc').innerText =
+    `Ortalama Fiyat: ${ortalamaFiyat} TL/kg`;
+}
+
+    // Kartlara tıklama ile secili sınıfı ekleme
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', function () {
+      document.querySelectorAll('.card').forEach(c => c.classList.remove('secili'));
+      this.classList.add('secili');
+    });
+  });
+
+
+  function cikisYap() {
+    window.location.href = 'index.html'; // ya da başka bir sayfa
+  }
+
+
+
+
+
+  function inputlariTemizle(btn) {
+  const card = btn.closest('.card');
+  const inputs = card.querySelectorAll('input');
+  const result = card.querySelector('.result');
+
+  inputs.forEach(input => {
+    input.value = '';
+  });
+
+  if (result) {
+    result.innerText = '';
+  }
+}
+
+
+
+
+    
+  function aciklamaGoster(elem) {
+  const card = elem.closest('.card');
+  const overlay = card.querySelector('.aciklama-overlay');
+  overlay.style.display = 'flex';
+}
+
+function aciklamaKapat(btn) {
+  const overlay = btn.closest('.aciklama-overlay');
+  overlay.style.display = 'none';
+}
+
+  
+
+
+
+	  function patatesKgHesapla() {
+  const adet = parseInt(document.getElementById('patatesAdet').value);
+  const gramaj = parseFloat(document.getElementById('patatesGramaj').value);
+  const birimFiyat = parseFloat(document.getElementById('patatesBirimFiyat').value);
+  const kdv = parseFloat(document.getElementById('patatesKdvOrani').value);
+
+  if (isNaN(adet) || isNaN(gramaj) || isNaN(birimFiyat) || isNaN(kdv)) {
+    document.getElementById('sonuc4').innerText = "Lütfen tüm alanları doldurun.";
+    return;
+  }
+
+  const toplamKg = (adet * gramaj) / 1000;
+  const kgFiyatKDVsiz = (birimFiyat / (gramaj / 1000)).toFixed(2);
+  const kgFiyatKDVli = (kgFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
+
+  document.getElementById('sonuc4').innerText =
+    `Toplam Miktar: ${toplamKg.toLocaleString()} kg\n` +
+    `KG Fiyatı (KDV Hariç): ${kgFiyatKDVsiz} TL\n` +
+    `KG Fiyatı (KDV Dahil): ${kgFiyatKDVli} TL`;
+}
+
+
+
+
+	  
+  
+ function sosisDogruHesapla() {
+  const gram = parseFloat(document.getElementById('taneGram').value);
+  const koliAdet = parseInt(document.getElementById('koliAdedi').value);
+  const toplamKg = parseFloat(document.getElementById('toplamKg').value);
+  const birimFiyatKg = parseFloat(document.getElementById('birimFiyat').value);
+  const kdv = parseFloat(document.getElementById('kdvOrani').value);
+
+  if (isNaN(gram) || isNaN(koliAdet) || isNaN(toplamKg) || isNaN(birimFiyatKg) || isNaN(kdv)) {
+    document.getElementById('sonuc3').innerText = "Lütfen tüm alanları doldurun.";
+    return;
+  }
+
+  const koliKg = (gram * koliAdet) / 1000; // bir kolideki kg miktarı
+  const toplamAdet = Math.round(toplamKg / (gram / 1000)); // toplam adet sosis
+  const adetFiyatKDVsiz = (birimFiyatKg * (gram / 1000)).toFixed(2);
+  const adetFiyatKDVli = (adetFiyatKDVsiz * (1 + kdv / 100)).toFixed(2);
+
+  document.getElementById('sonuc3').innerText =
+    `Gelen Adet: ${toplamAdet} adet\n` +
+    `KDV Hariç: ${adetFiyatKDVsiz} TL\n` +
+    `KDV Dahil: ${adetFiyatKDVli} TL`;
+}
+
+    function maliyetHesapla() {
+      const fiyat = parseFloat(document.getElementById('fiyat').value.replace(",", "."));
+
+      if (isNaN(fiyat)) {
+        document.getElementById('sonuc1').innerText = "Lütfen geçerli bir fiyat girin.";
+        return;
+      }
+
+      const maliyet = (fiyat / 0.9).toFixed(2);
+      document.getElementById('sonuc1').innerText =
+        `Derisiz Bonfile Maliyeti: ${maliyet} TL/kg`;
+    }
+
+    function miktarHesapla() {
+      const miktar = parseFloat(document.getElementById('miktar').value.replace(",", "."));
+
+      if (isNaN(miktar)) {
+        document.getElementById('sonuc2').innerText = "Lütfen geçerli bir miktar girin.";
+        return;
+      }
+
+      const bonfileKg = (miktar * 0.9).toFixed(2);
+      const deriKg = (miktar * 0.1).toFixed(2);
+
+      document.getElementById('sonuc2').innerText =
+        `Derisiz Bonfile: ${bonfileKg} kg\nDeri: ${deriKg} kg`;
+    }
+  </script>
+
+	<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script>
+async function readExcel(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = new Uint8Array(e.target.result);
+      const workbook = XLSX.read(data, { type: "array" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const json = XLSX.utils.sheet_to_json(sheet);
+      resolve(json);
+    };
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(file);
+  });
+}
+
+async function combineExcels() {
+  const stokFile = document.getElementById("stokFile").files[0];
+  const fiyatFile = document.getElementById("fiyatFile").files[0];
+
+  if (!stokFile || !fiyatFile) {
+    document.getElementById("combineResult").innerText = "⚠️ Lütfen iki dosyayı da seçiniz.";
+    return;
+  }
+
+  document.getElementById("combineResult").innerText = "⏳ İşleniyor...";
+
+  const stokData = await readExcel(stokFile);
+  const fiyatData = await readExcel(fiyatFile);
+
+  const result = stokData.map(stok => {
+    const stokKodu = stok["Stok Kodu"];
+    const stokIsmi = stok["Stok İsmi"];
+    const bakiye = stok["Bakiye"];
+
+    const fiyatKayit = fiyatData.find(f =>
+      f["Stok Kod"] === stokKodu || f["Stok İsim"] === stokIsmi
+    ) || {};
+
+    const satisFiyat =
+      fiyatKayit["[FIYAT1]GENEL SATIŞ FİYATI "] ||
+      fiyatKayit["[FIYAT1]GENEL SATIŞ FİYATI"] || "";
+
+    return {
+      "Stok İsmi": stokIsmi || "",
+      "Bakiye": bakiye || "",
+      "[FIYATALIS]GENEL ALIŞ FİYATI": fiyatKayit["[FIYATALIS]GENEL ALIŞ FİYATI"] || "",
+      "[FIYAT1]GENEL SATIŞ FİYATI": satisFiyat
+    };
+  });
+
+  const ws = XLSX.utils.json_to_sheet(result);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "BİRLEŞİK_VERİ");
+
+  // Tarihli dosya adı oluştur
+  const tarih = new Date().toISOString().split("T")[0];
+  const dosyaAdi = `Birlesik_Excel_${tarih}.xlsx`;
+
+  XLSX.writeFile(wb, dosyaAdi);
+
+  document.getElementById("combineResult").innerText = "✅ Birleştirme tamamlandı. Dosya indirildi.";
+}
+</script>
+
+
+</body>
+</html>
